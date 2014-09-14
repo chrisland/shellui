@@ -1,0 +1,14 @@
+<ul id="page-edit-list">
+{% for item in list %}
+    <li class="item">
+    	<input type="text" class="title" value="{{ item.title }}" placeholder="title" />
+		<input type="text" class="exec" value="{{ item.exec }}" placeholder="exec" />
+		<input type="text" class="dir" value="{{ item.dir }}" placeholder="dir" />
+    </li>
+{% endfor %}
+	<li class="item">
+    	<input type="text" class="title" value="{{ item.title }}" placeholder="title" />
+		<input type="text" class="exec" value="{{ item.exec }}" placeholder="exec" />
+		<input type="text" class="dir" value="{{ item.dir }}" placeholder="dir" />
+    </li>
+</ul>

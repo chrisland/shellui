@@ -1,0 +1,3 @@
+{% for item in list %}
+    <button class="shellbutton" data-exec="{{ item.exec }}" data-dir="{{ item.dir }}">{{ item.title || item.exec }}</button>
+{% endfor %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ShellUi</title>
+  <link rel="stylesheet" type="text/css" href="style/style.min.css" media="all" />
+  
+  
+</head>
+<body style="-webkit-app-region: drag">
+	
+	<div id="header" class="">
+		<button id="toolbar-edit">edit</button>
+		<button id="toolbar-save" style="display:none;">save</button>
+	</div> <!--- header end -->
+	<div id="main">
+		<div id="main-left"></div>
+		<div id="main-right">
+			<div class="code"></div>
+			<div class="output"></div>
+		</div>
+	</div> <!--- main end -->
+
+	<div id="footer" class="">
+		<button id="toolbar-console">console</button>
+	</div><!--- footer end -->
+
+	<input style="display:none;" id="fileDialog" type="file" nwdirectory/>
+ 	<script type="text/javascript" src="shellui.min.js"></script> 
+</body>
+</html>
+

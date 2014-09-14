@@ -1,0 +1,15 @@
+{
+  "name": "ShellUi",
+  "description": "",
+  "version": "0.1",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "width": 200,
+    "height": 400,
+    "min_width": 100,
+    "min_height": 300,
+    "frame": true,
+    "icon": "style/logo_icon.png"
+  }
+}
