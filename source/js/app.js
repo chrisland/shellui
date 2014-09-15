@@ -107,10 +107,12 @@ var events = function () {
 		
 		if ( GLOB_jq(e.currentTarget).hasClass('open') ) {
 			win.width = 200;
-			GLOB_jq(e.currentTarget).removeClass('open')
+			GLOB_jq(e.currentTarget).removeClass('open');
+			GLOB_jq('#main-right').hide();
 		} else {
 			win.width = 500;
-			GLOB_jq(e.currentTarget).addClass('open')
+			GLOB_jq(e.currentTarget).addClass('open');
+			GLOB_jq('#main-right').show();
 		}
 		
 		

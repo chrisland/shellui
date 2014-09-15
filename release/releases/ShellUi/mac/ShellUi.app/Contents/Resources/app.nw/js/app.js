@@ -79,17 +79,13 @@ var events = function () {
 		//console.log('click shell');
 		var exec = GLOB_jq(e.currentTarget).data('exec');
 		var dir = GLOB_jq(e.currentTarget).data('dir');
-		/*
-if (dir) {
+		
+		if (dir) {
 			GLOB_shelljs.cd(dir);
 		}
-*/
+
 		if (exec) {
-			
-			if (dir) {
-				exec = 'cd '+dir+' '+exec;
-			}
-			
+	
 			console.log('exec', exec);
 
 			
@@ -111,10 +107,12 @@ if (dir) {
 		
 		if ( GLOB_jq(e.currentTarget).hasClass('open') ) {
 			win.width = 200;
-			GLOB_jq(e.currentTarget).removeClass('open')
+			GLOB_jq(e.currentTarget).removeClass('open');
+			GLOB_jq('#main-right').hide();
 		} else {
 			win.width = 500;
-			GLOB_jq(e.currentTarget).addClass('open')
+			GLOB_jq(e.currentTarget).addClass('open');
+			GLOB_jq('#main-right').show();
 		}
 		
 		
