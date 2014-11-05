@@ -1,3 +1,14 @@
 {
-  "list": []
+  "list": [
+    {
+      "title": "Cripser",
+      "exec": "grunt",
+      "dir": "/Users/christianmarienfeld/git/crisper/10_dev"
+    },
+    {
+      "title": "fsd",
+      "exec": "fsd",
+      "dir": "/Users/christianmarienfeld/git/crisper/10_dev/release"
+    }
+  ]
 }

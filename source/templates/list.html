@@ -1,3 +1,7 @@
 {% for item in list %}
-    <button class="shellbutton" data-exec="{{ item.exec }}" data-dir="{{ item.dir }}">{{ item.title || item.exec }}</button>
+    <button class="shellbutton" data-exec="{{ item.exec }}" data-dir="{{ item.dir }}">
+    	<div class="title">{{ item.title || item.exec }}</div>
+    	<div class="dir">{{ item.dir }}</div>
+    	<div class="notif"></div>
+    </button>
 {% endfor %}
