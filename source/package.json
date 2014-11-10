@@ -5,9 +5,9 @@
   "main": "index.html",
   "window": {
     "toolbar": false,
-    "width": 200,
-    "height": 400,
-    "min_width": 100,
+    "width": 250,
+    "height": 500,
+    "min_width": 250,
     "min_height": 300,
     "frame": true,
     "icon": "style/logo_icon.png"

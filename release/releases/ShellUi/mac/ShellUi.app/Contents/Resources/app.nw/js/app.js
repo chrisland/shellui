@@ -47,6 +47,13 @@ var showList = function () {
 		editList();
 		
 	} else {
+		for (var i = 0; i < obj.list.length; i++) {
+			if (obj.list[i].dir) {
+				var split = obj.list[i].dir.split('/');
+				obj.list[i].dirread = '../'+split[split.length-1]
+			}
+		}
+		//console.log(obj);
 		GLOB_LIB_render.render('templates/list.html', obj, GLOB_jq('#main-left'), function (dom) {
 			GLOB_jq('#toolbar-save').hide();
 			GLOB_jq('#toolbar-edit').show();			
@@ -82,6 +89,9 @@ var events = function () {
 		
 		var dom = GLOB_jq(e.currentTarget);
 		
+		dom.find('.notif').removeClass('ok');
+		dom.find('.notif').removeClass('error');
+		
 		GLOB_jq('#main-right').find('.live').text('working...');
 		GLOB_jq('#main-right').find('.error').text('').hide();
 		GLOB_jq('#main-right').find('.output').text('');
@@ -103,19 +113,40 @@ var events = function () {
 			
 			var output = '';
 			cmd(exec, dir,function (data) {
-				GLOB_jq('#main-right').find('.live').text(data);
-				output = output+data+'\n';
-				GLOB_jq('#main-right').find('.output').text(output);
+				/*
+data += '';
+				data = data.replace('[4m','');
+				data = data.replace('[24m','');
+				data = data.replace('[32m','');
+				data = data.replace('[39m','');
+	
+*/
+				data = data.replace(/"(.*?)"/gi, "<span class='syntax_blue'>$1</span>");
+				
+				data = data.replace(/\[4m(.*?)\[24m/gi, "<span class='syntax_underline'>$1</span>");
+				data = data.replace(/\[32m(.*?)\[39m/gi, "<span class='syntax_green'>$1</span>");
+				
+				GLOB_jq('#main-right').find('.live').html(data);
+				output = output+data+'<br>';
+				GLOB_jq('#main-right').find('.output').html(output);
+				
+				//var hljs = require('highlight.js');
+				//hljs.highlightBlock(GLOB_jq('#main-right').find('.output').get(0));
+				//hljs.initHighlighting();
+				
 			}, function (data) {
 				GLOB_jq('#main-right').find('.error').text(data).show();
 				dom.removeClass('spinner');
-				GLOB_jq('#toolbar-console').trigger('click');
+				//GLOB_jq('#toolbar-console').trigger('click');
+				dom.find('.notif').addClass('error');
+				GLOB_jq('#main-right').find('.live').text('');
 				
 			}, function (code) {
 				GLOB_jq('#main-right').find('.code').text(code).show();
-				GLOB_jq('#main-right').find('.output').text(output);
 				
-
+				GLOB_jq('#main-right').find('.output').html(output);
+				
+				dom.find('.notif').addClass('done');
 				dom.removeClass('spinner');
 			});
 				
@@ -140,11 +171,11 @@ var events = function () {
 		var win = gui.Window.get();
 		
 		if ( GLOB_jq(e.currentTarget).hasClass('open') ) {
-			win.width = 200;
+			win.width = 250;
 			GLOB_jq(e.currentTarget).removeClass('open');
 			GLOB_jq('#main-right').hide();
 		} else {
-			win.width = 500;
+			win.width = 650;
 			GLOB_jq(e.currentTarget).addClass('open');
 			GLOB_jq('#main-right').show();
 		}
@@ -159,37 +190,42 @@ var events = function () {
 	
 	GLOB_jq('#toolbar-save').on('click', function () {
 		var newObj = [];
+		var kill = false;
 		GLOB_jq('#page-edit-list .item').each(function (i,k) {
 			var title = GLOB_jq(k).find('.title').val();
-			if (title == '') {
-				GLOB_jq(k).find('.title').addClass('required');
-				return false;
-			} else {
-				GLOB_jq(k).find('.title').removeClass('required');
-			}
 			var exec = GLOB_jq(k).find('.exec').val();
-			if (exec == '') {
-				GLOB_jq(k).find('.exec').addClass('required');
-				return false;
-			} else {
-				GLOB_jq(k).find('.exec').removeClass('required');
+			
+			if (!GLOB_jq(k).hasClass('new')) {
+				
+			
+				if (!title || title == '') {
+					GLOB_jq(k).find('.title').addClass('required');
+					kill = true;
+					//return false;
+				} else {
+					GLOB_jq(k).find('.title').removeClass('required');
+				}
+			
+			
+				if (!exec || exec == '') {
+					GLOB_jq(k).find('.exec').addClass('required');
+					kill = true;
+				} else {
+					GLOB_jq(k).find('.exec').removeClass('required');
+				}
 			}
 			var dir = GLOB_jq(k).find('.dir').val();
-			if (dir == '') {
-				GLOB_jq(k).find('.dir').addClass('required');
-				return false;
-			} else {
-				GLOB_jq(k).find('.dir').removeClass('required');
-			}
-			
-			if (title && exec && dir) {
+
+			if (title && exec) {
 				newObj.push({'title':title, 'exec':exec, 'dir':dir});
 			}
 		});
+		if (!kill) {
+			_db_btn.object.list = newObj;
+			_db_btn.save();
+			showList();
+		}
 		
-		_db_btn.object.list = newObj;
-		_db_btn.save();
-		showList();
 	});
 };
 
@@ -211,8 +247,7 @@ var cmd = function (exec, dir, live, error, close) {
 	}
 	
 	
-	
-	ls.stdout.on('data', function (data) {
+	ls.stdout.setEncoding('utf8').on('data', function (data) {
 	  //console.log('stdout: ' + data);
 	  	
 	  //GLOB_jq('#main-right').find('.live').text(data);
@@ -224,7 +259,7 @@ var cmd = function (exec, dir, live, error, close) {
 
 	});
 	
-	ls.stderr.on('data', function (data) {
+	ls.stderr.setEncoding('utf8').on('data', function (data) {
 	  //console.log('stderr: ' + data);
 	  //GLOB_jq('#main-right').find('.error').text(data).show();
 	  if (error) {

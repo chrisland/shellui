@@ -18,38 +18,21 @@
 /* Bereich für den Schieberegler */
 
 ::-webkit-scrollbar-thumb {
-  background-color: #4986b9;
+  background-color: rgb(0,128,128);
   border-radius: 0px;
 }
 
 /* Schieberegler */
 
 ::-webkit-scrollbar-corner {
-  background-color: #4986b9;
+  background-color: rgb(0,128,128);
 }
 
 /* Größenregler (bei TEXTAREA sichtbar) */
 
 @font-face {
-  font-family: fontdefault;
-  src: url('fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf');
-  fontface_font-family: fontdefault;
-  fontface_src: url('fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf');
-}
-
-@font-face {
-  font-family: fontbold;
-  src: url('fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf');
-}
-
-@font-face {
   font-family: fontmonospace;
   src: url('fonts/Ubuntu_Mono/UbuntuMono-Regular.ttf');
-}
-
-@font-face {
-  font-family: fontsubheadline;
-  src: url('fonts/Julius_Sans_One/JuliusSansOne-Regular.ttf');
 }
 
 html {
@@ -58,8 +41,8 @@ html {
   margin: 0;
   width: 100%;
   height: 100%;
-  color: rgb(24, 24, 24);
-  background-color: rgb(238, 238, 238);
+  color: rgb(0, 0, 0);
+  background-color: rgb(50, 60, 63);
 }
 
 body {
@@ -71,20 +54,33 @@ body {
   width: 100%;
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 input {
   height: 1.2rem;
-  background-color: rgba(0,0,0,0);
+  background-color: rgb(255, 255, 255);
   border-radius: 0;
-  text-indent: 1rem;
   border: 1px #cccccc solid;
   -webkit-appearance: none;
   margin-bottom: 0.5rem;
+  text-indent: 0.5rem;
+  font-family: fontmonospace;
 }
 
 input.required {
-  border: 1px rgb(255, 0, 0) solid;
+  border: 1px red solid;
+}
+
+input.dir {
+  background: url(img/folder178.svg),rgb(73, 87, 91);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: auto 50%;
+  background-position: 0.5rem center;
+  text-indent: 2rem;
 }
 
 button {
@@ -121,22 +117,36 @@ li {
   padding: 0;
 }
 
-body * {
+body *:not(span) {
   display: flex;
   flex: 1;
 }
 
+span {
+  display: inline;
+}
+
 #header {
   height: 1.5rem;
-  flex: 5;
+  flex: 4;
   display: flex;
-  background-color: rgb(111, 111, 111);
+  background-color: rgb(29, 36, 38);
+  box-shadow: 0px 0px 15px  #000;
+}
+
+#header button {
+  border: 0;
+}
+
+#header button:focus {
+  border: 0;
 }
 
 #main {
   height: 100%;
   flex: 60;
   display: flex;
+  overflow: hidden;
 }
 
 #main-left {
@@ -145,7 +155,8 @@ body * {
   flex: 2;
   flex-wrap: wrap;
   align-content: flex-start;
-  border-right: 1px #adadad solid;
+  min-width: 13rem;
+  padding-top: 0.7rem;
 }
 
 #main-right {
@@ -154,37 +165,74 @@ body * {
   flex-direction: column;
   font-family: fontmonospace;
   font-size: 70%;
+  border-left: 1px #000 solid;
+  color: #ffffff;
 }
 
-#main-right .error,
 #main-right .live {
   max-height: 2rem;
   border-bottom: 1px rgb(0, 0, 0);
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding-left: 2.5rem;
   overflow: hidden;
-}
-
-#main-right .code {
-  max-height: 2rem;
-  border-bottom: 1px rgb(0, 0, 0);
-  padding-top: 1rem;
-  padding-left: 1rem;
-  overflow: hidden;
+  background-image: url(img/clipboard76.svg);
+  background-size: 1.2rem auto;
+  background-position: 0.5rem 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  background-repeat: no-repeat;
+  line-height: 1.2rem;
+  font-size: 120%;
+  display: block;
 }
 
 #main-right .error {
-  color: rgb(255, 0, 0);
-  padding-top: 1rem;
-  padding-left: 1rem;
+  max-height: 1rem;
+  border-bottom: 1px rgb(0, 0, 0);
+  padding-left: 2.5rem;
   overflow: hidden;
+  background-image: url(img/circle12.svg);
+  background-size: 1rem auto;
+  background-position: 0.5rem 1.5rem;
+  color: red;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  background-repeat: no-repeat;
+  line-height: 1.2rem;
+  font-size: 120%;
+  padding-top: 1.5rem;
+}
+
+#main-right .code {
+  max-height: 1rem;
+  border-bottom: 1px rgb(0, 0, 0) solid;
+  padding-left: 2.5rem;
+  overflow: hidden;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  background-repeat: no-repeat;
+  background-image: url(img/key162.svg);
+  background-size: 1rem auto;
+  background-position: 0.5rem center;
+  font-size: 150%;
 }
 
 #main-right .output {
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding-left: 2.5rem;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  background-color: #000;
+  line-height: 1.2rem;
+  flex-direction: column;
+  display: block;
+}
+
+#main-right .output span {
+  display: inline !important;
 }
 
 #page-edit-list {
@@ -202,6 +250,9 @@ body * {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   padding-bottom: 1rem;
+  background-color: #e9e9e9;
+  margin: 1rem;
+  border-radius: 0.3rem;
 }
 
 /*
@@ -222,6 +273,12 @@ body * {
   margin-left: 0.3rem;
   margin-right: 0.3rem;
   padding: 0.5rem;
+  background-color: #e9e9e9;
+  border-radius: 0.3rem;
+  border-top: 1px #ffffff solid;
+  border-bottom: 1px #000000 solid;
+  margin-bottom: 0.3rem;
+  font-family: fontmonospace;
 }
 
 .shellbutton .title {
@@ -232,6 +289,30 @@ body * {
 .shellbutton.spinner {
   background-color: rgb(0, 128, 128);
   color: #fff !important;
+  border: 0;
+}
+
+.shellbutton .notif.done {
+  background-image: url(img/check6.svg);
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+.shellbutton .notif.error {
+  background-image: url(img/circle12.svg);
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+.shellbutton .dir {
+  background-image: url(img/folder178_grey.svg);
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: 0.9rem auto;
+  padding-top: 0.2rem;
+  text-indent: 1.5rem;
 }
 
 #header button {
@@ -244,14 +325,14 @@ body * {
 
 #toolbar-edit {
   background-image: url('img/machine2.svg');
-  background-size: auto 60%;
+  background-size: auto 50%;
   background-position: 1rem center;
   background-repeat: no-repeat;
 }
 
 #toolbar-save {
   background-image: url('img/floppy5.svg');
-  background-size: auto 60%;
+  background-size: auto 50%;
   background-position: 1rem center;
   background-repeat: no-repeat;
 }
@@ -261,4 +342,20 @@ body * {
   background-size: auto 60%;
   background-position: 90% center;
   background-repeat: no-repeat;
+}
+
+.syntax_green {
+  color: rgb(19, 182, 19);
+}
+
+.syntax_red {
+  color: rgb(255, 0, 0);
+}
+
+.syntax_blue {
+  color: rgb(0, 255, 255);
+}
+
+.syntax_underline {
+  text-decoration: underline;
 }

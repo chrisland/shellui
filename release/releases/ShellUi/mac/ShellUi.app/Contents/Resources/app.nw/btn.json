@@ -1,14 +1,34 @@
 {
   "list": [
     {
-      "title": "Cripser",
+      "title": "Crisper",
       "exec": "grunt",
-      "dir": "/Users/christianmarienfeld/git/crisper/10_dev"
+      "dir": "/Users/admin/git/crisper/10_dev",
+      "dirread": "../10_dev"
     },
     {
-      "title": "fsd",
-      "exec": "fsd",
-      "dir": "/Users/christianmarienfeld/git/crisper/10_dev/release"
+      "title": "Crisper",
+      "exec": "hhh",
+      "dir": "/Users/admin/git/crisper/10_dev",
+      "dirread": "../10_dev"
+    },
+    {
+      "title": "Crisper",
+      "exec": "grunt",
+      "dir": "/Users/admin/git/crisper/10_dev",
+      "dirread": "../10_dev"
+    },
+    {
+      "title": "Crisper",
+      "exec": "grunt",
+      "dir": "/Users/admin/git/crisper/10_dev",
+      "dirread": "../10_dev"
+    },
+    {
+      "title": "Crisper",
+      "exec": "grunt",
+      "dir": "/Users/admin/git/crisper/10_dev",
+      "dirread": "../10_dev"
     }
   ]
 }
