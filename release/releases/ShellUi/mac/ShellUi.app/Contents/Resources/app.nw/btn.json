@@ -1,31 +1,7 @@
 {
   "list": [
     {
-      "title": "Crisper",
-      "exec": "grunt",
-      "dir": "/Users/admin/git/crisper/10_dev",
-      "dirread": "../10_dev"
-    },
-    {
-      "title": "Crisper",
-      "exec": "hhh",
-      "dir": "/Users/admin/git/crisper/10_dev",
-      "dirread": "../10_dev"
-    },
-    {
-      "title": "Crisper",
-      "exec": "grunt",
-      "dir": "/Users/admin/git/crisper/10_dev",
-      "dirread": "../10_dev"
-    },
-    {
-      "title": "Crisper",
-      "exec": "grunt",
-      "dir": "/Users/admin/git/crisper/10_dev",
-      "dirread": "../10_dev"
-    },
-    {
-      "title": "Crisper",
+      "title": "dfs",
       "exec": "grunt",
       "dir": "/Users/admin/git/crisper/10_dev",
       "dirread": "../10_dev"
