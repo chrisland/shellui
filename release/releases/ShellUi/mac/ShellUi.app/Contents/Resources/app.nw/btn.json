@@ -1,10 +1,16 @@
 {
   "list": [
     {
-      "title": "dfs",
+      "title": "Crisper",
       "exec": "grunt",
       "dir": "/Users/admin/git/crisper/10_dev",
       "dirread": "../10_dev"
+    },
+    {
+      "title": "dabapp",
+      "exec": "phonegap serve",
+      "dir": "/Users/admin/Desktop/dab-app",
+      "dirread": "../dab-app"
     }
   ]
 }

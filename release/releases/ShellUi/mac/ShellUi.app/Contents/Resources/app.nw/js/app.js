@@ -89,7 +89,7 @@ var events = function () {
 		
 		var dom = GLOB_jq(e.currentTarget);
 		
-		dom.find('.notif').removeClass('ok');
+		dom.find('.notif').removeClass('done');
 		dom.find('.notif').removeClass('error');
 		
 		GLOB_jq('#main-right').find('.live').text('working...');
@@ -111,6 +111,28 @@ var events = function () {
 			//GLOB_process.spawn('cd '+dir)
 			//GLOB_shelljs.cd(dir);
 			
+			var notifdom = dom.find('.notif');
+			
+			var counter = 0,
+		     cDisplay = document.getElementById("counter");
+		     format = function(t) {
+		         var minutes = Math.floor(t/600),
+		             seconds = Math.floor( (t/10) % 60),
+		             mili = Math.floor(t % 10);
+		         minutes = (minutes < 10) ? "0" + minutes.toString() : minutes.toString();
+		         seconds = (seconds < 10) ? "0" + seconds.toString() : seconds.toString();
+		         mili = (mili < 10) ? "0"+mili : mili;
+		         notifdom.text(minutes + ":" + seconds + ":" + mili);
+		     };
+		    var timer = setInterval(function() {
+		       counter++;
+		       format(counter);
+		    },100);
+		    
+		    
+		    
+			GLOB_jq('#footer').text('Working...');
+			
 			var output = '';
 			cmd(exec, dir,function (data) {
 				/*
@@ -121,12 +143,18 @@ data += '';
 				data = data.replace('[39m','');
 	
 */
+				
+				
 				data = data.replace(/"(.*?)"/gi, "<span class='syntax_blue'>$1</span>");
 				
 				data = data.replace(/\[4m(.*?)\[24m/gi, "<span class='syntax_underline'>$1</span>");
 				data = data.replace(/\[32m(.*?)\[39m/gi, "<span class='syntax_green'>$1</span>");
 				
 				GLOB_jq('#main-right').find('.live').html(data);
+				
+				var str = data.substr(0,35);
+				GLOB_jq('#footer').html(str+'...');
+				
 				output = output+data+'<br>';
 				GLOB_jq('#main-right').find('.output').html(output);
 				
@@ -140,7 +168,8 @@ data += '';
 				//GLOB_jq('#toolbar-console').trigger('click');
 				dom.find('.notif').addClass('error');
 				GLOB_jq('#main-right').find('.live').text('');
-				
+				clearInterval ( timer );
+				GLOB_jq('#footer').text('Error!');
 			}, function (code) {
 				GLOB_jq('#main-right').find('.code').text(code).show();
 				
@@ -148,6 +177,8 @@ data += '';
 				
 				dom.find('.notif').addClass('done');
 				dom.removeClass('spinner');
+				clearInterval ( timer );
+				GLOB_jq('#footer').text('Done!');
 			});
 				
 
@@ -166,7 +197,7 @@ data += '';
 	});
 	
 	
-	GLOB_jq('#toolbar-console').on('click', function (e) {
+	GLOB_jq('#toolbar-console, #footer').on('click', function (e) {
 		//gui.Window.width = 500;
 		var win = gui.Window.get();
 		
